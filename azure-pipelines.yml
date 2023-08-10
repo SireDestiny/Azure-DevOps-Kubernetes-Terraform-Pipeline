@@ -10,14 +10,13 @@ stages:
   - job: BuildJob
     steps:
     - bash: echo "Do the build"
-
 - stage: DevDeploy
   jobs:
+  - deployment: DevDeployjob
+    environment: Dev
   - job: BuildJob
     steps:
     - bash: echo "Start DevDeploy"
-  - deployment: DevDeployJob
-    environment: Dev
     strategy:
       runOnce:
         deploy:
@@ -25,15 +24,11 @@ stages:
           - script: echo deploy to dev
 - stage: QADevDeploy
   jobs:
-  - job: BuildJob
-    steps:
-    - bash: echo "Start DevDeploy"
-  - deployment: DevDeployJob
-    environment: Dev
+  - deployment: QADevDeployJob
+    environment: QA
     strategy:
       runOnce:
         deploy:
           steps:
           - script: echo deploy to dev
-  displayName: 'Run a one-line script'
 
