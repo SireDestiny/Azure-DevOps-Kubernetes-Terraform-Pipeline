@@ -12,15 +12,20 @@ pool:
 jobs:
 - job: job1
   steps:
-  - script: echo job1 successful. Good job, Tomi!
+  - script: echo Job1 successful!
     displayName: 'Run a one-line script'
-
   - script: |
       echo Add other tasks to build, test, and deploy your project.
       echo See https://aka.ms/yaml
-    displayName: 'Run a multi-line script'
-    
-- job: job2
+    displayName: 'Run a multi-line script'   
+- job: Job2
+  dependsOn:Job1
   steps:
-  - script: echo job2 successful. Good job, Tomi!
+  - script: echo Job2 successful!
     displayName: 'Run a one-line script'
+- job: Job3
+  dependsOn:Job2
+  steps:
+  - script: echo Job3 done!
+    displayName: 'Run a one-line script'
+
