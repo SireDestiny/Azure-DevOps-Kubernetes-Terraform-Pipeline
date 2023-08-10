@@ -14,9 +14,6 @@ stages:
   jobs:
   - deployment: DevDeployjob
     environment: Dev
-  - job: BuildJob
-    steps:
-    - bash: echo "Start DevDeploy"
     strategy:
       runOnce:
         deploy:
