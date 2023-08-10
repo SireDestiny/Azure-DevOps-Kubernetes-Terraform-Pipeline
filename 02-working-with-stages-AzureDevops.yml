@@ -14,7 +14,7 @@ stages:
     - bash: ls -R $(System.DefaultWorkingDirectory)
     - bash: echo $(Build.ArtifactsStagingDirectory)
     - bash: java --version
-    - bash: Python --version
+    - bash: python --version
     - bash: node --version
     - bash: ls -R $(Build.ArtifactsStagingDirectory)
     - task: CopyFiles@2
