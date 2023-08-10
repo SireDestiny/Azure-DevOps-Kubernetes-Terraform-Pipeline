@@ -11,12 +11,11 @@ steps:
   name: public_key
   inputs:
     secureFile: 'azure_rsa.pub'
-
 - task: TerraformCLI@0
   inputs:
     command: 'init'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
-    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(public_key.secureFilePath)'
+    #commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(public_key.secureFilePath)'
     backendType: 'azurerm'
     backendServiceArm: 'azure-service-connection'
     ensureBackend: true
@@ -25,3 +24,10 @@ steps:
     backendAzureRmStorageAccountName: 'tomitacct'
     backendAzureRmContainerName: 'tomitcont'
     backendAzureRmKey: 'kubernetes-dev.tfstate'
+
+- task: TerraformCLI@0
+  inputs:
+    command: 'apply'
+    environmentServiceName: 'azure-service-connection'
+    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
+    commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(public_key.secureFilePath)'
